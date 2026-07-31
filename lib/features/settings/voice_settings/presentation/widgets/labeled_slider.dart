@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_spacing.dart';
 import '../../../../../core/theme/app_typography.dart';
-import '../../../../../shared/widgets/misc/section_header.dart';
 
 /// Slider with a label above and min/mid/max captions below.
+/// When [showValue] is true, the live [valueLabel] is shown next to the label
+/// and the bottom captions are hidden.
 class LabeledSlider extends StatelessWidget {
   const LabeledSlider({
     super.key,
@@ -15,6 +16,8 @@ class LabeledSlider extends StatelessWidget {
     required this.midLabel,
     required this.maxLabel,
     required this.onChanged,
+    this.showValue = false,
+    this.valueLabel,
     this.min = 0.5,
     this.max = 1.5,
   });
@@ -26,6 +29,8 @@ class LabeledSlider extends StatelessWidget {
   final String minLabel;
   final String midLabel;
   final String maxLabel;
+  final bool showValue;
+  final String? valueLabel;
   final ValueChanged<double> onChanged;
 
   @override
@@ -38,7 +43,13 @@ class LabeledSlider extends StatelessWidget {
             horizontal: AppSpacing.lg,
             vertical: AppSpacing.xs,
           ),
-          child: SectionHeader(title: label),
+          child: Row(
+            children: [
+              Expanded(child: Text(label, style: AppTypography.bodyMedium)),
+              if (showValue && valueLabel != null)
+                Text(valueLabel!, style: AppTypography.bodyMedium),
+            ],
+          ),
         ),
         SliderTheme(
           data: SliderThemeData(
@@ -54,31 +65,33 @@ class LabeledSlider extends StatelessWidget {
             onChanged: onChanged,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(minLabel, style: AppTypography.caption),
-              ),
-              Expanded(
-                child: Text(
-                  midLabel,
-                  style: AppTypography.caption,
-                  textAlign: TextAlign.center,
+        if (!showValue) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(minLabel, style: AppTypography.caption),
                 ),
-              ),
-              Expanded(
-                child: Text(
-                  maxLabel,
-                  style: AppTypography.caption,
-                  textAlign: TextAlign.end,
+                Expanded(
+                  child: Text(
+                    midLabel,
+                    style: AppTypography.caption,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Text(
+                    maxLabel,
+                    style: AppTypography.caption,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
+        ],
       ],
     );
   }
