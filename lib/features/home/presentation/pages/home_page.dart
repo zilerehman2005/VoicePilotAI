@@ -4,11 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/navigation/bottom_nav_bar.dart';
+import '../../../chat/presentation/pages/conversation_detail_page.dart';
 import '../../../chat/presentation/pages/text_chat_page.dart';
 import '../../../history/presentation/pages/history_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
+import '../../../saved/presentation/pages/saved_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
 import '../../../voice_assistant/presentation/pages/voice_assistant_page.dart';
+import '../../domain/entities/recent_chat_item.dart';
 import '../providers/recent_chats_provider.dart';
 import '../widgets/home_greeting_header.dart';
 import '../widgets/home_quick_actions.dart';
@@ -50,7 +53,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         break;
       case 3:
         Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (_) => const SettingsPage()),
+          MaterialPageRoute<void>(builder: (_) => const SavedPage()),
         );
         break;
     }
@@ -68,9 +71,26 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
+  void _navigateToConversation(RecentChatItem chatItem) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ConversationDetailPage(
+          conversationId: chatItem.id,
+          title: chatItem.title,
+        ),
+      ),
+    );
+  }
+
   void _navigateToHistory() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => const HistoryPage()),
+    );
+  }
+
+  void _navigateToSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const SavedPage()),
     );
   }
 
@@ -124,7 +144,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         isActive: _activeQuickActionIndex == 3,
         onTap: () {
           setState(() => _activeQuickActionIndex = 3);
-          _navigateToHistory();
+          _navigateToSaved();
         },
       ),
     ];
@@ -167,7 +187,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         chats: recentChats,
                         onSeeAllTap: _navigateToHistory,
                         onItemTap: (chatItem) {
-                          _navigateToChat();
+                          _navigateToConversation(chatItem);
                         },
                       ),
                       const SizedBox(height: AppSpacing.lg),
