@@ -22,6 +22,7 @@ class AppColors {
   static const Color success = Color(0xFF22C55E);
   static const Color error = Color(0xFFEF4444);
   static const Color warning = Color(0xFFFBBF24);
+  static const Color starGold = Color(0xFFFBBF24);
   static const Color googleButtonBg = Color(0xFFFFFFFF);
 
   static const LinearGradient primaryGradient = LinearGradient(
