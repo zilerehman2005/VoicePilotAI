@@ -6,6 +6,8 @@ import '../../../../shared/widgets/cards/setting_tile.dart';
 import '../../../../shared/widgets/misc/section_header.dart';
 import '../../../../shared/widgets/navigation/top_app_bar.dart';
 import '../../appearance/presentation/pages/appearance_page.dart';
+import '../../ai_model/presentation/pages/ai_model_page.dart';
+import '../../notifications/presentation/pages/notifications_page.dart';
 import '../../voice_settings/presentation/pages/voice_settings_page.dart';
 
 /// Main Settings screen listing configurable app options.
@@ -59,7 +61,7 @@ class SettingsPage extends StatelessWidget {
                   SettingTile(
                     title: 'AI Model',
                     icon: Icons.smart_toy_outlined,
-                    onTap: () => _goToAiModel(context),
+                    onTap: () => _navigateTo(context, const AiModelPage()),
                   ),
                 ]),
                 const SizedBox(height: AppSpacing.lg),
@@ -67,7 +69,7 @@ class SettingsPage extends StatelessWidget {
                   SettingTile(
                     title: 'Notifications',
                     icon: Icons.notifications_outlined,
-                    onTap: () => _goToNotifications(context),
+                    onTap: () => _navigateTo(context, const NotificationsPage()),
                   ),
                   SettingTile(
                     title: 'Privacy',
@@ -126,14 +128,6 @@ void _goToGeneral(BuildContext context) {
 
 void _goToLanguage(BuildContext context) {
   // TODO: Navigate to the Language settings screen.
-}
-
-void _goToAiModel(BuildContext context) {
-  // TODO: Navigate to the AI Model settings screen.
-}
-
-void _goToNotifications(BuildContext context) {
-  // TODO: Navigate to the Notifications settings screen.
 }
 
 void _goToPrivacy(BuildContext context) {
