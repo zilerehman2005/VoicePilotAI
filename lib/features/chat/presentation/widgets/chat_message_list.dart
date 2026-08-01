@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/chat/chat_bubble.dart';
+import '../../../../shared/widgets/states/empty_state_widget.dart';
 import '../../domain/entities/chat_message_entity.dart';
 
 /// Scrollable message list rendering ChatBubble widgets.
@@ -11,19 +12,23 @@ class ChatMessageList extends StatelessWidget {
     super.key,
     required this.messages,
     this.scrollController,
+    this.onSpeakTap,
   });
 
   final List<ChatMessageEntity> messages;
   final ScrollController? scrollController;
 
+  /// Triggered when the empty-state "Tap to Speak" button is pressed.
+  final VoidCallback? onSpeakTap;
+
   @override
   Widget build(BuildContext context) {
     if (messages.isEmpty) {
-      return const Center(
-        child: Text(
-          'Start a new conversation',
-          style: TextStyle(color: AppColors.textTertiary),
-        ),
+      return EmptyStateWidget(
+        title: 'No conversations yet',
+        subtitle: 'Tap the mic button to start your first conversation.',
+        buttonLabel: 'Tap to Speak',
+        onButtonTap: onSpeakTap,
       );
     }
 

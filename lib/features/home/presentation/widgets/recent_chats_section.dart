@@ -5,6 +5,7 @@ import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../shared/widgets/misc/section_header.dart';
+import '../../../../shared/widgets/states/empty_state_widget.dart';
 import '../../domain/entities/recent_chat_item.dart';
 
 /// Recent Chats section widget displaying a section header and a list of chat items.
@@ -14,11 +15,15 @@ class RecentChatsSection extends StatelessWidget {
     required this.chats,
     this.onSeeAllTap,
     this.onItemTap,
+    this.onSpeakTap,
   });
 
   final List<RecentChatItem> chats;
   final VoidCallback? onSeeAllTap;
   final ValueChanged<RecentChatItem>? onItemTap;
+
+  /// Triggered when the empty-state "Tap to Speak" button is pressed.
+  final VoidCallback? onSpeakTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +37,11 @@ class RecentChatsSection extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.sm),
         if (chats.isEmpty)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(AppRadius.md),
-              border: Border.all(color: AppColors.border),
-            ),
-            child: Text(
-              'No recent chats yet.',
-              style: AppTypography.bodyMedium.copyWith(
-                color: AppColors.textTertiary,
-              ),
-              textAlign: TextAlign.center,
-            ),
+          EmptyStateWidget(
+            title: 'No conversations yet',
+            subtitle: 'Tap the mic button to start your first conversation.',
+            buttonLabel: 'Tap to Speak',
+            onButtonTap: onSpeakTap,
           )
         else
           ListView.separated(

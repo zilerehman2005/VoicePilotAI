@@ -186,6 +186,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       RecentChatsSection(
                         chats: recentChats,
                         onSeeAllTap: _navigateToHistory,
+                        onSpeakTap: _navigateToVoiceAssistant,
                         onItemTap: (chatItem) {
                           _navigateToConversation(chatItem);
                         },

@@ -117,6 +117,13 @@ class _TextChatPageState extends ConsumerState<TextChatPage> {
             child: ChatMessageList(
               messages: _messages,
               scrollController: _scrollController,
+              onSpeakTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const VoiceListeningPage(),
+                  ),
+                );
+              },
             ),
           ),
           ChatInputBar(

@@ -4,6 +4,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/inputs/search_bar.dart';
 import '../../../../shared/widgets/navigation/top_app_bar.dart';
+import '../../../../shared/widgets/states/empty_state_widget.dart';
+import '../../../voice_assistant/presentation/pages/voice_listening_page.dart';
 import '../../domain/entities/saved_item_entity.dart';
 import '../widgets/saved_list_item.dart';
 
@@ -104,11 +106,15 @@ class _SavedPageState extends State<SavedPage> {
 
   Widget _buildList() {
     if (widget.items.isEmpty) {
-      return const Center(
-        child: Text(
-          'No saved items yet.',
-          style: TextStyle(color: AppColors.textTertiary),
-        ),
+      return EmptyStateWidget(
+        title: 'No saved items yet',
+        subtitle: 'Tap the mic button to start your first conversation.',
+        buttonLabel: 'Tap to Speak',
+        onButtonTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const VoiceListeningPage()),
+          );
+        },
       );
     }
 

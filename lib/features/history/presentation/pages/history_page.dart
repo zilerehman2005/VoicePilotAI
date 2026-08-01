@@ -5,7 +5,9 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/inputs/search_bar.dart';
 import '../../../../shared/widgets/misc/section_header.dart';
 import '../../../../shared/widgets/navigation/top_app_bar.dart';
+import '../../../../shared/widgets/states/empty_state_widget.dart';
 import '../../../chat/presentation/pages/conversation_detail_page.dart';
+import '../../../voice_assistant/presentation/pages/voice_listening_page.dart';
 import '../../domain/entities/history_item_entity.dart';
 import '../widgets/history_list_item.dart';
 
@@ -132,11 +134,15 @@ class _HistoryPageState extends State<HistoryPage> {
 
   Widget _buildGroupedList() {
     if (widget.groups.isEmpty) {
-      return const Center(
-        child: Text(
-          'No conversations yet.',
-          style: TextStyle(color: AppColors.textTertiary),
-        ),
+      return EmptyStateWidget(
+        title: 'No conversations yet',
+        subtitle: 'Tap the mic button to start your first conversation.',
+        buttonLabel: 'Tap to Speak',
+        onButtonTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const VoiceListeningPage()),
+          );
+        },
       );
     }
 
