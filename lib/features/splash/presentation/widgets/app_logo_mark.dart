@@ -41,29 +41,32 @@ class _WaveformGlyph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(7, (index) {
-          final double height = [10.0, 18.0, 26.0, 34.0, 26.0, 18.0, 10.0][index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs / 2),
-            child: Container(
-              width: 4,
-              height: height,
-              decoration: BoxDecoration(
-                color: AppColors.textPrimary,
-                borderRadius: BorderRadius.circular(999),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withOpacity(0.35),
-                    blurRadius: 8,
-                  ),
-                ],
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: List.generate(7, (index) {
+            final double height = [10.0, 18.0, 26.0, 34.0, 26.0, 18.0, 10.0][index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs / 2),
+              child: Container(
+                width: 4,
+                height: height,
+                decoration: BoxDecoration(
+                  color: AppColors.textPrimary,
+                  borderRadius: BorderRadius.circular(999),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withOpacity(0.35),
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }
