@@ -6,7 +6,8 @@ plugins {
 
 android {
     namespace = "com.example.voicepilot_ai"
-    compileSdk = flutter.compileSdkVersion
+    // permission_handler_android compiles against SDK 37.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
