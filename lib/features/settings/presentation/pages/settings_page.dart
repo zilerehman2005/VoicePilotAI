@@ -5,6 +5,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/cards/setting_tile.dart';
 import '../../../../shared/widgets/misc/section_header.dart';
 import '../../../../shared/widgets/navigation/top_app_bar.dart';
+import '../../../about/presentation/pages/about_page.dart';
 import '../../appearance/presentation/pages/appearance_page.dart';
 import '../../ai_model/presentation/pages/ai_model_page.dart';
 import '../../notifications/presentation/pages/notifications_page.dart';
@@ -139,5 +140,7 @@ void _goToAccount(BuildContext context) {
 }
 
 void _goToAbout(BuildContext context) {
-  // TODO: Navigate to the About screen.
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(builder: (_) => const AboutPage()),
+  );
 }
