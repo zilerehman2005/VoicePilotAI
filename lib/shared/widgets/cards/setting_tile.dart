@@ -14,6 +14,7 @@ class SettingTile extends StatelessWidget {
     this.value,
     this.trailing,
     this.showChevron = true,
+    this.destructive = false,
     this.onTap,
   });
 
@@ -22,10 +23,16 @@ class SettingTile extends StatelessWidget {
   final String? value;
   final Widget? trailing;
   final bool showChevron;
+
+  /// Renders the row in AppColors.error for destructive actions like Logout.
+  final bool destructive;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final Color accent = destructive ? AppColors.error : AppColors.primaryLight;
+    final Color titleColor =
+        destructive ? AppColors.error : AppColors.textPrimary;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.md),
@@ -48,7 +55,7 @@ class SettingTile extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 18,
-                  color: AppColors.primaryLight,
+                  color: accent,
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
@@ -56,7 +63,7 @@ class SettingTile extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: AppTypography.bodyLarge,
+                style: AppTypography.bodyLarge.copyWith(color: titleColor),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -69,10 +76,10 @@ class SettingTile extends StatelessWidget {
                 const SizedBox(width: AppSpacing.xs),
               ],
               if (showChevron)
-                const Icon(
+                Icon(
                   Icons.chevron_right_rounded,
                   size: 20,
-                  color: AppColors.textTertiary,
+                  color: destructive ? AppColors.error : AppColors.textTertiary,
                 ),
             ],
           ],
